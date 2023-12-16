@@ -1,0 +1,15 @@
+------ testing selectionSort1: Ascending moving largest to end  ------
+98 49 88 90 100 63 60 86 74 56
+49 56 60 63 74 86 88 90 98 100
+
+------ testing selectionSort2: Descending moving smallest to end  ------
+30 36 99 59 4 1 48 48 83 17
+99 83 59 48 48 36 30 17 4 1
+
+------ testing selectionSort3: Ascending moving smallest to beginning  ------
+66 14 99 7 100 1 7 79 54 21
+1 7 7 14 21 54 66 79 99 100
+
+------ testing selectionSort4: Descending moving largest to beginning  ------
+82 3 21 21 93 20 84 4 5 9
+93 84 82 21 21 20 9 5 4 3

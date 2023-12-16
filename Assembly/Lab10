@@ -1,0 +1,114 @@
+.data
+
+myArray: .word 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+how: .asciiz "How many elements: "
+too: .asciiz "Too many elements!!!\n"
+low: .asciiz "Not enough elements!!!\n"
+space: .asciiz "\n"
+insert: .asciiz "Insert the values\n"
+colon: .asciiz ": "
+
+.text 
+
+la $s1, myArray
+li $t3, 1
+li $t4, 4
+li $t0, 0
+
+Before: li $v0, 4	#getting number of elements in array
+	la $a0, how
+	syscall
+	
+	li $v0, 5
+	syscall
+
+	add $t0, $v0, $zero
+	add $t1, $v0, $zero
+	add $t7, $v0, $zero
+	
+	bgt $t0, 10, arrayCountHigh
+	blt $t0, 0, arrayCountLow
+	
+	j Ready1
+
+Ready1: beq $t0, $zero, After #filling array
+	
+	li $v0, 1
+	add $a0, $t3, $zero
+	syscall
+
+	li $v0, 4
+	la $a0, colon
+	syscall
+	
+	li $v0, 5
+	syscall
+	
+	sw $v0, 0($s1)
+	
+	addi $s1, $s1, 4
+	
+	addi $t0, $t0, -1
+	
+	addi $t3, $t3, 1
+	
+	j Ready1 
+	
+After:  addi $s1, $s1, -4
+	la $s2, myArray
+	div $s3, $t1, 2
+	
+	j Swap
+	
+Swap: beq $t0, $s3, Ready3
+	
+	lw $t2, 0($s1)
+	lw $t3, 0($s2)
+	
+	add $t4, $t2, $zero
+	
+	sw $t3, 0($s1)
+	sw $t4, 0($s2)
+
+	addi $s1, $s1, -4
+	addi $s2, $s2, 4
+	addi $t0, $t0, 1
+	
+	j Swap
+
+arrayCountHigh: li $v0, 4
+		la $a0, too
+		syscall
+	
+		j Before
+		
+arrayCountLow: li $v0, 4
+		la $a0, low
+		syscall
+		
+		j Before
+		
+Ready3: li $t1, 0
+	la $s1, myArray
+	
+	j Output
+
+Output: beq $t1, $t7, Exit
+	
+	lw $a0, 0($s1)
+	li $v0, 1
+	syscall
+	
+	li $v0, 4
+	la $a0, space
+	syscall
+	
+	addi $s1, $s1, 4 
+
+	addi $t1, $t1, 1
+	
+	j Output
+	
+
+Exit:	li $v0, 10
+	syscall

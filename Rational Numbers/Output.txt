@@ -1,0 +1,87 @@
+[javie032@empress cs211]$ ./a.out
+
+-------------- 1 -----------------
+Rational Number 1
+Enter the top number: 3
+Enter the bottom number: 5
+n1 is 3/5
+
+-------------- 2 -----------------
+
+Rational Number 2
+Enter the top number: 3
+Enter the bottom number: 7
+n2 is 3/7
+
+-------------- 3 -----------------
+3/5 + 3/7 = 36/35
+
+-------------- 4 -----------------
+Enter an item:
+Enter the top number: 3
+Enter the bottom number: 5
+Enter an item:
+Enter the top number: 3
+Enter the bottom number: 7
+Enter an item:
+Enter the top number: 3
+Enter the bottom number: 4
+Checking to see if the array is filled
+3/5 3/7 3/4
+
+-------------- 5 -----------------
+Checking to see if the array is sorted in ascending order
+3/7 3/5 3/4
+
+-------------- 6 -----------------
+Checking to see if 3/5 is in the array
+3/5 is found.
+
+-------------- 7 -----------------
+n1 is 3/5 n2 is 3/7 before n1 += n2
+After n1 += n2, n1 is 36/35
+
+[javie032@empress cs211]$ ./a.out
+
+-------------- 1 -----------------
+Rational Number 1
+Enter the top number: 6
+Enter the bottom number: 5
+n1 is 6/5
+
+-------------- 2 -----------------
+
+Rational Number 2
+Enter the top number: 13
+Enter the bottom number: 10
+n2 is 13/10
+
+-------------- 3 -----------------
+6/5 + 13/10 = 5/2
+
+-------------- 4 -----------------
+Enter an item:
+Enter the top number: 4
+Enter the bottom number: 7
+Enter an item:
+Enter the top number: 3
+Enter the bottom number: 5
+Enter an item:
+Enter the top number: 3
+Enter the bottom number: 2
+Checking to see if the array is filled
+4/7 3/5 3/2
+
+-------------- 5 -----------------
+Checking to see if the array is sorted in ascending order
+4/7 3/5 3/2
+
+-------------- 6 -----------------
+Checking to see if 6/5 is in the array
+6/5 is found.
+
+-------------- 7 -----------------
+n1 is 6/5 n2 is 13/10 before n1 += n2
+After n1 += n2, n1 is 5/2
+
+[javie032@empress cs211]$

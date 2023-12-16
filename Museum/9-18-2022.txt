@@ -1,0 +1,11 @@
+======The names of the countries of visitors======
+USA Japan 
+
+The age of the youngest visitor: 20
+The age of the oldest visitor: 43
+The average age of the visitors: -nan
+
+The shortest visit hours: 2.5
+The longest visit hours: 6.5
+The average visit gours: -nan
+

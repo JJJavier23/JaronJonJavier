@@ -1,0 +1,21 @@
+[javie032@empress cs211]$ ./a.out
+35+6147-*/+
+
+ = 8
+[javie032@empress cs211]$ ./a.out
+333333+8
+
+Error:Expression is too long.
+[javie032@empress cs211]$ ./a.out
+35+-
+
+Error: Not enough operands.
+Stack underflow
+[javie032@empress cs211]$ ./a.out
+35+257-*@
+
+Error: Invalid item was found.
+[javie032@empress cs211]$ ./a.out
+35+257+/
+
+Error: Too many operands.

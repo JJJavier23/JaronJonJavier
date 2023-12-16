@@ -1,0 +1,39 @@
+[javie032@empress cs211]$ ./a.out
+Enter a string: abcdba
+"abcdba" is not a palindrome
+
+[javie032@empress cs211]$ ./a.out
+Enter a string: Racecar
+"Racecar" is a palindrome
+
+[javie032@empress cs211]$ ./a.out
+Enter a string: Race car
+"Race car" is a palindrome
+
+[javie032@empress cs211]$ ./a.out
+Enter a string: Santa at Nasa
+"Santa at Nasa" is not a palindrome
+
+[javie032@empress cs211]$ ./a.out
+Enter a string: Pop
+"Pop" is a palindrome
+
+[javie032@empress cs211]$ ./a.out
+Enter a string: Ada
+"Ada" is a palindrome
+
+[javie032@empress cs211]$ ./a.out
+Enter a string: Anna
+"Anna" is a palindrome
+
+[javie032@empress cs211]$ ./a.out
+Enter a string: A Santa at Nasa.
+"A Santa at Nasa." is a palindrome
+
+[javie032@empress cs211]$ ./a.out
+Enter a string: as in nasa
+"as in nasa" is not a palindrome
+
+[javie032@empress cs211]$ ./a.out
+Enter a string: A Toyota! Race fast, safe car! A Toyota!
+"A Toyota! Race fast, safe car! A Toyota!" is a palindrome
