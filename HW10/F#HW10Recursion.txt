@@ -1,0 +1,44 @@
+open System
+
+[<EntryPoint>]
+let main argv =
+
+  let rec compare_lists list1 list2 =
+    match list1, list2 with
+    | [], [] -> true
+    | [], _ -> false
+    | _, [] -> false 
+    | x::xs, y::ys when x = y -> compare_lists xs ys
+    | _ -> false
+
+  //test 1
+  let lis1 = []
+  let lis2 = []
+  let test1 = compare_lists lis1 lis2
+  printfn "%A" test1
+
+  //test 2
+  let lis3 = [1;2]
+  let lis4 = [1;2;3]
+  let test2 = compare_lists lis3 lis4
+  printfn "%A" test2
+
+  //test 3
+  let lis5 = [2;1;3]
+  let lis6 = [2;1;4]
+  let test3 = compare_lists lis5 lis6
+  printfn "%A" test3
+
+  //test 4
+  let lis7 = [2;1;3;4]
+  let lis8 = [2;1;3;4]
+  let test4 = compare_lists lis7 lis8
+  printfn "%A" test4
+
+  //test 5
+  let lis9 = [3;4]
+  let lis10 = [3]
+  let test5 = compare_lists lis9 lis10
+  printfn "%A" test5
+
+  0 // return an integer exit code

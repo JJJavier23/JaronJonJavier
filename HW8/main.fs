@@ -1,0 +1,446 @@
+open System
+
+[<EntryPoint>]
+let main argv =
+  let AssertEquality a b = 
+    if a<>b then failwith "a != b, test failed"
+    else printfn "test success"
+
+    
+  let expected_value = 1 + 1
+  let actual_value = 2
+  AssertEquality expected_value actual_value
+
+
+
+  AssertEquality "foo" "foo"
+
+
+
+  let x = 50
+  AssertEquality x 50
+
+
+  
+  let x = 50
+  let typeOfX = x.GetType()
+  AssertEquality typeOfX typeof<int>
+
+
+
+
+  let y = "a string"
+  let expectedType = y.GetType()
+  AssertEquality expectedType typeof<string>
+
+
+
+
+  let (x:int) = 42
+  let typeOfX = x.GetType()
+  let y:string = "forty two"
+  let typeOfY = y.GetType()
+  AssertEquality typeOfX typeof<int>
+  AssertEquality typeOfY typeof<string>
+
+
+
+
+  let x = 20
+  let typeOfX = x.GetType()
+  let y = 20.0
+  let typeOfY = y.GetType()
+  AssertEquality typeOfX typeof<int>
+  AssertEquality typeOfY typeof<float>
+
+
+
+
+  let mutable x = 100
+  x <- 200
+  AssertEquality x 200
+
+
+
+
+  let x = 50
+  let x = 100
+  AssertEquality x 100
+
+
+
+
+  let add x y =
+    x + y
+  let result1 = add 2 2
+  let result2 = add 5 2
+  AssertEquality result1 4
+  AssertEquality result2 7
+
+
+
+
+  let quadruple x =    
+    let double x =
+      x * 2
+
+    double(double(x))
+
+  let result = quadruple 4
+  AssertEquality result 16
+
+
+
+
+  let sayItLikeAnAuctioneer (text:string) =
+      text.Replace(" ", "")
+  let auctioneered = sayItLikeAnAuctioneer "going once going twice sold to the lady in red"
+  AssertEquality auctioneered "goingoncegoingtwicesoldtotheladyinred"
+
+
+
+  let suffix = "!!!"
+  let caffinate (text:string) =
+      let exclaimed = text + suffix
+      let yelled = exclaimed.ToUpper()
+      yelled.Trim()
+
+  let caffinatedReply = caffinate "hello there"
+  AssertEquality caffinatedReply "HELLO THERE!!!"
+
+
+
+  let add x y =
+      x + y
+  let result = add (add 5 8) (add 1 1)
+  AssertEquality result 15
+
+
+
+  let add x y =
+    x + y
+  let double x =
+    x * 2
+  let result = double <| add 5 8
+  AssertEquality result 26
+
+
+
+  let sendData data =
+      //...pretend we are sending the data to the server...
+      ()
+  let x = sendData "data"
+  AssertEquality x ()
+
+
+
+  let sayHello() =
+    "hello"
+  let result = sayHello()
+  AssertEquality result "hello"
+
+  
+
+  let items = ("apple", "dog")
+  AssertEquality items ("apple", "dog")
+
+
+
+  let items = ("apple", "dog")
+  let fruit = fst items
+  let animal = snd items
+  AssertEquality fruit "apple"
+  AssertEquality animal "dog"
+
+
+
+  let items = ("apple", "dog", "Mustang")
+  let fruit, animal, car = items
+  AssertEquality fruit "apple"
+  AssertEquality animal "dog"
+  AssertEquality car "Mustang"
+
+
+
+  let items = ("apple", "dog", "Mustang")
+  let _, animal, _ = items
+  AssertEquality animal "dog"
+
+
+
+  let squareAndCube x =
+    (x ** 2.0, x ** 3.0)
+  let squared, cubed = squareAndCube 3.0
+  AssertEquality squared 9.0
+  AssertEquality cubed 27.0
+
+
+
+  let squareAndCube x =
+      (x ** 2.0, x ** 3.0)
+  let result = squareAndCube 3.0
+  AssertEquality result (9.0, 27.0)
+
+
+
+  let isEven x =
+    if x % 2 = 0 then
+      "it's even!"
+    else
+      "it's odd!"
+  let result = isEven 2                
+  AssertEquality result "it's even!"
+
+
+
+  let result = 
+    if 2 = 3 then
+      "something is REALLY wrong"
+    else
+      "math is workng!"
+  AssertEquality result "math is workng!"
+
+
+
+  let isApple x =
+    match x with
+    | "apple" -> true
+    | _ -> false
+  let result1 = isApple "apple"
+  let result2 = isApple ""
+  AssertEquality result1 true
+  AssertEquality result2 false
+
+
+
+  let getDinner x = 
+      let name, foodChoice = x
+
+      if foodChoice = "veggies" || foodChoice ="fish" || 
+         foodChoice = "chicken" then
+          sprintf "%s doesn't want red meat" name
+      else
+          sprintf "%s wants 'em some %s" name foodChoice
+
+  let person1 = ("Chris", "steak")
+  let person2 = ("Dave", "veggies")
+  AssertEquality (getDinner person1) "Chris wants 'em some steak"
+  AssertEquality (getDinner person2) "Dave doesn't want red meat" 
+
+
+
+  let getDinner x =
+      match x with
+      | (name, "veggies")
+      | (name, "fish")
+      | (name, "chicken") -> sprintf "%s doesn't want red meat" name
+      | (name, foodChoice) -> sprintf "%s wants 'em some %s" name foodChoice 
+  let person1 = ("Bob", "fish")
+  let person2 = ("Sally", "Burger")
+  AssertEquality (getDinner person1) "Bob doesn't want red meat"
+  AssertEquality (getDinner person2) "Sally wants 'em some Burger"
+
+
+
+  let list = ["apple"; "pear"; "grape"; "peach"]
+  //Note: The list data type in F# is a singly linked list, 
+  //      so indexing elements is O(n). 
+  AssertEquality list.Head "apple"
+  AssertEquality list.Tail ["pear"; "grape"; "peach"]
+  AssertEquality list.Length 4
+
+
+
+  let first = ["grape"; "peach"]
+  let second = "pear" :: first
+  let third = "apple" :: second
+  //Note: "::" is known as "cons"
+  AssertEquality ["apple"; "pear"; "grape"; "peach"] third 
+  AssertEquality second ["pear"; "grape"; "peach"]
+  AssertEquality first ["grape"; "peach"]
+
+
+
+  let first = ["apple"; "pear"; "grape"]
+  let second = first @ ["peach"]
+  AssertEquality first ["apple"; "pear"; "grape"]
+  AssertEquality second ["apple"; "pear"; "grape"; "peach"]
+
+
+
+  let list = [0..4]
+  AssertEquality list.Head 0
+  AssertEquality list.Tail [1; 2; 3; 4]
+
+
+
+  let list = [for i in 0..4 do yield i ]
+  AssertEquality list [0; 1; 2; 3; 4]
+
+
+
+  let list = [for i in 0..10 do 
+                  if i % 2 = 0 then yield i ]
+  AssertEquality list [0; 2; 4; 6; 8; 10]
+
+
+
+  let square x =
+      x * x
+  let original = [0..5]
+  let result = List.map square original
+  AssertEquality original [0; 1; 2; 3; 4; 5]
+  AssertEquality result [0; 1; 4; 9; 16; 25]
+
+
+
+  let isEven x =
+      x % 2 = 0
+  let original = [0..5]
+  let result = List.filter isEven original
+  AssertEquality original [0; 1; 2; 3; 4; 5]
+  AssertEquality result [0; 2; 4]
+
+
+
+  let isOdd x =
+      not(x % 2 = 0)
+  let original = [0..5]
+  let result1, result2 = List.partition isOdd original
+  AssertEquality result1 [1; 3; 5]
+  AssertEquality result2 [0; 2; 4]
+
+
+
+  let square x =
+      x * x
+  let isEven x =
+      x % 2 = 0
+  (* One way to combine operations is by using separate statements.
+     However, this is can be clumsy since you have to name each result. *)
+  let numbers = [0..5]
+  let evens = List.filter isEven numbers
+  let result = List.map square evens
+  AssertEquality result [0; 4; 16]
+
+
+
+  let numbers = [0..5]
+  let result = List.map square (List.filter isEven numbers)
+  AssertEquality result [0; 4; 16]
+
+
+
+  let result =
+      [0..5]
+      |> List.filter isEven
+      |> List.map square
+  AssertEquality result [0; 4; 16]
+
+
+
+  let (|>) x y =
+      y x
+  let result =
+      [0..5]
+      |> List.filter isEven
+      |> List.map square
+  AssertEquality result [0; 4; 16]
+
+
+
+  let fruits = [| "apple"; "pear"; "peach"|]
+  AssertEquality fruits.[0] "apple"
+  AssertEquality fruits.[1] "pear"
+  AssertEquality fruits.[2] "peach"
+
+
+
+  let fruits = [| "apple"; "pear" |]
+  fruits.[1] <- "peach"
+  AssertEquality fruits [| "apple"; "peach"|]
+
+
+
+  let numbers = 
+      [| for i in 0..10 do 
+             if i % 2 = 0 then yield i |]
+  AssertEquality numbers [| 0; 2; 4; 6; 8; 10|]
+
+
+
+  let cube x =
+      x * x * x
+  let original = [| 0..5 |]
+  let result = Array.map cube original
+  AssertEquality original [| 0; 1; 2; 3; 4; 5|]
+  AssertEquality result [| 0; 1; 8; 27; 64; 125|]
+
+
+
+  //skipping lines 700-800
+
+
+
+  let values = [0..10]
+  let mutable sum = 0
+  for value in values do
+      sum <- sum + value
+  AssertEquality sum 55
+
+
+
+  let mutable sum = 0
+  for i = 1 to 5 do
+      sum <- sum + i
+  AssertEquality sum 15
+
+
+
+  let mutable sum = 1
+  while sum < 10 do
+      sum <- sum + sum
+  AssertEquality sum 16
+
+
+
+  let colors = ["maize"; "blue"]
+  let echo = 
+      colors
+      |> List.map (fun x -> x + " " + x)
+  AssertEquality echo ["maize maize"; "blue blue"]
+
+
+
+  let add x =
+      (fun y -> x + y)
+  (* F#'s lightweight syntax allows you to call both functions as if there
+     was only one *)
+  let simpleResult = add 2 4
+  AssertEquality simpleResult 6
+  (* ...but you can also pass only one argument at a time to create
+     residual functions. This technique is known as partial appliction. *)
+  let addTen = add 10
+  let fancyResult = addTen 14
+  AssertEquality fancyResult 24
+
+
+
+  let add x y = 
+      x + y
+  let addSeven = add 7
+  let unluckyNumber = addSeven 6
+  let luckyNumber = addSeven 0
+  AssertEquality unluckyNumber 13
+  AssertEquality luckyNumber 7
+
+
+
+  let add(x, y) =
+      x + y
+  (* NOTE: "add 5" will not compile now. You have to pass both arguments 
+           at once *)
+  let result = add(5, 40)
+
+  AssertEquality result 45
+  0 // return an integer exit code

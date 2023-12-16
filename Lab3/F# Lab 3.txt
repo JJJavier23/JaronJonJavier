@@ -1,0 +1,178 @@
+open System
+
+[<EntryPoint>]
+let main argv =
+
+  //================================================
+  //Complete Koans and Submit count as 5pt HW in total
+  //There are 15 tests and 3 output prints from this example
+  //Each worth 0.25 pt in HW
+  //Submission is 0.5 pt in HW
+  //Correct output:
+  //T1...Test Success
+  //...
+  //T15...Test Success
+  //The top of the current stack is 3.000000
+  //The top of the current stack is 27.000000
+  //The top of the current stack is 6.000000
+  //================================================
+
+  let AssertEquality inputTuple =
+    match inputTuple with
+    |(a,b) when a=b -> printfn "Test Success"
+    |_ -> printfn "Test Fail"
+
+
+  //type Stack = StackContents of float list
+
+  //### now test your code
+  let testStack1= [1.0;2.0;3.0]
+  let contents=testStack1 //get the content from a stack using pattern matching
+  printf "T1..."
+  AssertEquality (contents, [1.0;2.0;3.0])
+
+
+  let push x contents =
+     x::contents
+
+  let emptyStack = []
+  let stackWith1test = push 1.0 emptyStack
+  let stackWith2test = push 2.0 stackWith1test
+  printf "T2..."
+  AssertEquality (stackWith2test, [2.0;1.0])
+
+  let ONE = push 1.0
+  let TWO = push 2.0
+  let THREE = push 3.0
+  let FOUR = push 4.0
+  let FIVE = push 5.0
+  let EMPTY = []
+
+  let stackWith1 = ONE EMPTY
+  let stackWith2 = TWO stackWith1
+  let stackWith3 = THREE stackWith2
+
+  let result123 = EMPTY |> ONE |> TWO |> THREE
+  printf "T3..."
+  AssertEquality (stackWith3, result123)
+
+  let result312 = EMPTY |> THREE |> ONE |> TWO
+  printf "T4..."
+  AssertEquality (result312, [2.0;1.0;3.0])
+
+  let pop contents =
+    match contents with
+    |top::rest->
+      let newStack = rest 
+      (top, newStack)
+    |[]->
+      failwith "Stack Underflow"
+
+  let initialStack = EMPTY |> ONE |> TWO
+  let popped1, poppedStack = pop initialStack
+  let popped2, poppedStack2 = pop poppedStack
+  printf "T5..."
+  AssertEquality (initialStack, [2.0;1.0])
+  printf "T6..."
+  AssertEquality (poppedStack,[1.0])
+  printf "T7..."
+  AssertEquality (popped2, 1.0)
+
+  let ADDtest stack =
+    let x,s = pop stack //pop the top of the stack
+    let y,s2 = pop s //pop the result stack
+    let result = x + y //do the math
+    push result s2
+
+  let add12=ADDtest [2.0;1.0] //list is immutable, so the initialStack is
+  printf "T8..."
+  AssertEquality (add12, [3.0])
+
+  let MULtest stack =
+    let x,s = pop stack //pop the top of the stack
+    let y,s2 = pop s //pop the result stack
+    let result = x*y //do the math
+    push result s2 //push back on the doubly-popped stack
+
+  let mul12=MULtest [2.0;1.0]
+  printf "T9..."
+  AssertEquality (mul12, [2.0])
+
+  let binary mathFn stack =
+    let y,stack' = pop stack
+    let x,stack'' = pop stack'
+    let z = mathFn x y
+    push z stack''
+
+  let ADD = binary (+)
+  let SUB = binary (-)
+  let MUL = binary (*)
+  let DIV = binary (/)
+
+  let div3by2 = EMPTY |> THREE|> TWO |> DIV
+  let sub2from5 = EMPTY |> FIVE |> TWO |> SUB
+  let sub2from5thenadd1 = EMPTY |> FIVE |> TWO |> SUB |> ONE |> ADD
+
+  printf "T10..."
+  AssertEquality(div3by2, [1.5])
+  printf "T11..."
+  AssertEquality(sub2from5, [3.0])
+  printf "T12..."
+  AssertEquality(sub2from5thenadd1, [4.0])
+
+  let unary f stack =
+    let x,stack' = pop stack in
+    push (f x) stack'
+
+  let NEG = unary (fun x -> -x)
+  let SQUARE = unary (fun x -> x*x)
+
+  let neg3 = EMPTY |> THREE|> NEG
+  let square2 = EMPTY |> TWO |> SQUARE
+  let squareneg3= EMPTY |> THREE |> NEG |> SQUARE
+  printf "T13..."
+  AssertEquality(neg3, [-3.0])
+  printf "T14..."
+  AssertEquality(square2, [4.0])
+  printf "T15..."
+  AssertEquality(squareneg3, [9.0])
+
+  // ==============================================
+  // Other core
+  // ==============================================
+  /// Pop and show the top value on the stack
+  let SHOW stack =
+    let x,rest = pop stack
+    printfn "The top of the current stack is %f" x
+    push x rest // return the same stack
+
+  let DROP stack =
+    let x,s = pop stack //pop the top of the stack
+    s
+
+  let DUP stack =
+    // get the top of the stack
+    let x, stack' = pop stack
+    let stack'' = push x stack'
+    // push it onto the stack again
+    push x stack''
+
+  let SWAP stack =
+    let x,s = pop stack
+    let y,s' = pop s in
+    push y (push x s')
+
+  let CUBE = 
+    DUP >> DUP >> MUL >> MUL
+
+  let SUM_NUMBERS_UPTO =
+    DUP // n
+    >> ONE >> ADD// n+1
+    >> MUL // n(n+1)
+    >> TWO >> DIV // n(n+1) / 2
+
+  let myStack= EMPTY |> ONE |> TWO |> THREE
+  let stackTop= myStack |> SHOW
+  let stackTopEleCubed = myStack |> CUBE |> SHOW
+  let stackSum=myStack |> SUM_NUMBERS_UPTO |> SHOW
+  0 // return an integer exit code
